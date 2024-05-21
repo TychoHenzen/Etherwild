@@ -17,12 +17,6 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DebugType>none</DebugType>
     </PropertyGroup>
-
-    <ItemGroup>
-        <None Update="Icon.ico">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Costura.Fody" Version="5.8.0-alpha0098">
             <PrivateAssets>all</PrivateAssets>
@@ -44,6 +38,10 @@
         <Exec Command="rmdir /S /Q $(TargetDir)runtimes" />
     </Target>
     <Target Name="PublishWithWarp" AfterTargets="Publish">
+        <Exec Command="del $(TargetDir)*.xml" />
+        <Exec Command="del $(TargetDir)*.pdb" />
+        <Exec Command="del $(TargetDir)Microsoft.CodeAnalysis*.dll" />
+        <Exec Command="rmdir /S /Q $(TargetDir)runtimes" />
         <Exec Command="dotnet warp --verbose --output $(TargetDir)\..\Etherwild.exe" Condition="'$(WarpOnBuild)' == 'true'" />
     </Target>
 </Project>
