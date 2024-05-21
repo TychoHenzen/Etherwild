@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtherwildEditor", "EtherwildEditor\EtherwildEditor.csproj", "{8FB1747C-D61A-4D26-B04B-DE2A55A3EA9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtherwildTransparencyTest", "EtherwildTransparencyTest\EtherwildTransparencyTest.csproj", "{9A176F8B-A2C2-4010-BE9B-A0271490AA72}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FB1747C-D61A-4D26-B04B-DE2A55A3EA9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FB1747C-D61A-4D26-B04B-DE2A55A3EA9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FB1747C-D61A-4D26-B04B-DE2A55A3EA9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FB1747C-D61A-4D26-B04B-DE2A55A3EA9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A176F8B-A2C2-4010-BE9B-A0271490AA72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A176F8B-A2C2-4010-BE9B-A0271490AA72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A176F8B-A2C2-4010-BE9B-A0271490AA72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A176F8B-A2C2-4010-BE9B-A0271490AA72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
