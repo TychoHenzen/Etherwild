@@ -1,0 +1,55 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "untitled.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "MasterSheet.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 5.5
+        },
+        "NatureMap.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 5116.5,
+                "y": 5628.833333333333
+            }
+        },
+        "untitled.tmx": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 76.625,
+                "y": 68.375
+            }
+        }
+    },
+    "last.externalTilesetPath": "C:/Users/siriu/RiderProjects/Etherwild/EtherwildTransparencyTest/Content/Assets",
+    "last.imagePath": "C:/Users/siriu/RiderProjects/Etherwild/EtherwildTransparencyTest/Content/Assets",
+    "map.height": 704,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 640,
+    "openFiles": [
+        "MasterSheet.tsx",
+        "untitled.tmx"
+    ],
+    "project": "Map.tiled-project",
+    "recentFiles": [
+        "NatureMap.tmx",
+        "MasterSheet.tsx",
+        "untitled.tmx"
+    ],
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

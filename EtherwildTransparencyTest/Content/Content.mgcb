@@ -10,6 +10,35 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:C:\Users\siriu\.nuget\packages\monogame.extended.tiled\3.8.0\lib\netstandard2.0\MonoGame.Extended.Tiled.dll
+/reference:C:\Users\siriu\.nuget\packages\monogame.extended.content.pipeline\3.8.0\tools\MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin Assets/MasterSheet.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:Assets/MasterSheet.tsx
+
+#begin Assets/MasterSheetTexture.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/MasterSheetTexture.png
+
+#begin Assets/NatureMap.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Assets/NatureMap.tmx
+
+#begin Assets/NatureMap.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:Assets/NatureMap.tmx
 

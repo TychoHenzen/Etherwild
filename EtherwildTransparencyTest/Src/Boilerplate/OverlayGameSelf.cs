@@ -55,35 +55,36 @@ namespace OverlayWindow
 
     [DllImport("dwmapi.dll")]
     private static extern int DwmExtendFrameIntoClientArea(IntPtr hWnd, ref int[] pMarInset);
-
     public OverlayGameSelf()
     {
       _graphics = new GraphicsDeviceManager(this);
       IntPtr hWnd = Window.Handle;
       SetLastError(0U);
-      if (SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_EX_TRANSPARENT) == 0 && Marshal.GetLastWin32Error() != 0)
+      // Remove WS_EX_TRANSPARENT flag
+      if (SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED) == 0 && Marshal.GetLastWin32Error() != 0)
         throw new Win32Exception(Marshal.GetLastWin32Error());
       if (!SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE))
         throw new Win32Exception(Marshal.GetLastWin32Error());
       if (!SetLayeredWindowAttributes(hWnd, 0, 255, LWA_ALPHA))
         throw new Win32Exception(Marshal.GetLastWin32Error());
-      
+
       IsMouseVisible = true;
       _graphics.IsFullScreen = true;
       _graphics.HardwareModeSwitch = false; // Ensures it uses borderless fullscreen
       Window.IsBorderless = true;
-      int[] pMarInset = [-1];
+      int[] pMarInset = { -1 };
       int error;
       if ((error = DwmExtendFrameIntoClientArea(Window.Handle, ref pMarInset)) != 0)
         throw new Win32Exception(error);
     }
+
     protected override void Initialize()
     {
       base.Initialize();
 
-      // Set window to be layered and transparent to mouse events
+      // Set window to be layered but not transparent to mouse events
       IntPtr hWnd = Window.Handle;
-      SetWindowLong(hWnd, GWL_EXSTYLE, (GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_EX_TRANSPARENT));
+      SetWindowLong(hWnd, GWL_EXSTYLE, (GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED)); // No WS_EX_TRANSPARENT
       SetLayeredWindowAttributes(hWnd, 0, 255, LWA_ALPHA);
     }
     protected override void Update(GameTime gameTime)
