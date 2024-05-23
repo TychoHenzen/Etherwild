@@ -9,6 +9,7 @@
         <LangVersion>12</LangVersion>
         <SelfContained>false</SelfContained>
         <PublishSingleFile>false</PublishSingleFile>
+        <RootNamespace>EtherwildClient</RootNamespace>
     </PropertyGroup>
     <PropertyGroup>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -33,14 +34,17 @@
         <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.0.1641" />
         <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Etherwild\Etherwild.csproj" />
+    </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>
         <Exec Command="dotnet tool restore"/>
     </Target>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="del $(TargetDir)\*.xml" />
-        <Exec Command="del $(TargetDir)\*.pdb" />
-        <Exec Command="del $(TargetDir)\Microsoft.CodeAnalysis*.dll" />
+        <Exec Command="del $(TargetDir)*.xml" />
+        <Exec Command="del $(TargetDir)*.pdb" />
+        <Exec Command="del $(TargetDir)Microsoft.CodeAnalysis*.dll" />
         <Exec Command="rmdir /S /Q $(TargetDir)runtimes" />
     </Target>
     <Target Name="PublishWithWarp" AfterTargets="Publish">

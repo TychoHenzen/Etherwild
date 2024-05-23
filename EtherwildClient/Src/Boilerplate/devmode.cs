@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace EtherwildTransparencyTest.Boilerplate;
+namespace Etherwild.Boilerplate;
 
 [StructLayout(LayoutKind.Sequential)]
 public struct Devmode

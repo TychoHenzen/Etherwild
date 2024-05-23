@@ -4,15 +4,15 @@
 // MVID: 44E23AAA-16CC-4504-B6A0-8D3FB00452AD
 // Assembly location: D:\Development\NugetPackages\overlaywindow\1.2.0\lib\net45\OverlayWindow.dll
 
-using Microsoft.Xna.Framework;
+#nullable disable
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Microsoft.Xna.Framework;
 
-#nullable disable
-namespace OverlayWindow
+namespace Etherwild.Boilerplate
 {
   public class OverlayGameSelf : Game
   {

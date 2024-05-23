@@ -1,13 +1,10 @@
-﻿using System;
-using EtherwildTransparencyTest.Boilerplate;
+﻿using Etherwild.Boilerplate;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Tiled;
-using MonoGame.Extended.Tiled.Renderers;
-using OverlayWindow;
 
-namespace EtherwildTransparencyTest;
+namespace Etherwild;
 public class EtherwildGameWindow : OverlayGameSelf
 {
     private SpriteBatch _spriteBatch;
@@ -19,8 +16,9 @@ public class EtherwildGameWindow : OverlayGameSelf
     public EtherwildGameWindow()
     {
         Content.RootDirectory = "Content";
-        
-        
+
+        TiledMap map = new TiledMap("asdf", 0, 0, 0, 0, TiledMapTileDrawOrder.LeftDown, TiledMapOrientation.Isometric);
+        map.Tilesets[0].
     }
 
     protected override void Initialize()
@@ -62,7 +60,6 @@ public class EtherwildGameWindow : OverlayGameSelf
         
         _mapRenderer.Draw();
         _player.Draw(_spriteBatch);
-        
         _spriteBatch.End();
 
         base.Draw(gameTime);
