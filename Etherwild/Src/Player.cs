@@ -9,6 +9,8 @@ namespace Etherwild;public class Player : IPositionable, IMovable
     private float _speed = 150;
     private int _tileX, _tileY;
 
+    public IVector2 Position { get; set; }
+
     public IRectangle BoundingBox => 
         new MyRectangle((int)_position.X, (int)_position.Y, _tileset.TileWidth, _tileset.TileHeight);
 

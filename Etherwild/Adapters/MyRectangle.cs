@@ -1,10 +1,4 @@
 ﻿namespace Etherwild.Adapters;
 
-public class MyRectangle(
-  int positionX,
-  int positionY,
-  int tilesetTileWidth,
-  int tilesetTileHeight) : IRectangle
-{
-  
-}
+public record MyRectangle(int X, int Y, int Width, int Height) : IRectangle ;
+public record MyColor(byte R, byte G, byte B, byte A) : IColor;

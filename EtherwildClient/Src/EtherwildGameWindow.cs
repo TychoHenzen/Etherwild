@@ -17,8 +17,6 @@ public class EtherwildGameWindow : OverlayGameSelf
     {
         Content.RootDirectory = "Content";
 
-        TiledMap map = new TiledMap("asdf", 0, 0, 0, 0, TiledMapTileDrawOrder.LeftDown, TiledMapOrientation.Isometric);
-        map.Tilesets[0].
     }
 
     protected override void Initialize()

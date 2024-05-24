@@ -1,4 +1,6 @@
 using System.Runtime.InteropServices;
+using Etherwild.Adapters;
+
 namespace Etherwild;
 public class MapRenderer
 {
@@ -23,6 +25,6 @@ public class MapRenderer
 
     public void Draw()
     {
-        _graphicsDevice.Draw(_mapRenderer, _scaleTransform);
+        _graphicsDevice.Draw(_mapRenderer, _scaleTransform, new MyRectangle(0,0,0,0), new MyColor(255,255,255,255));
     }
 }
