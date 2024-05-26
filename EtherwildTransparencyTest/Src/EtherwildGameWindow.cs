@@ -1,70 +1,53 @@
 ﻿using System;
 using EtherwildTransparencyTest.Boilerplate;
+using EtherwildTransparencyTest.Core;
+using EtherwildTransparencyTest.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended.Tiled;
-using MonoGame.Extended.Tiled.Renderers;
-using OverlayWindow;
+using KeyboardInput = EtherwildTransparencyTest.Core.KeyboardInput;
 
 namespace EtherwildTransparencyTest;
-public class EtherwildGameWindow : OverlayGameSelf
+public class EtherwildGameWindow : Game
 {
+    protected GraphicsDeviceManager Graphics;
     private SpriteBatch _spriteBatch;
-    private MapRenderer _mapRenderer;
-    private Player _player;
-    private Rectangle _customViewport;
-    private Matrix _scaleMatrix;
+    private EtherwildGame _etherwildGame;
 
     public EtherwildGameWindow()
     {
+        Graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        
-        
-    }
-
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
-
-        base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _mapRenderer = new MapRenderer(GraphicsDevice, Content);
-        _mapRenderer.LoadContent("Assets/NatureMap");
-        _player = new Player(_mapRenderer.Map, 0, 6);
+        var mapRenderer = new MapRenderer(new TiledMapLoader(Content));
+        mapRenderer.LoadContent(GraphicsDevice,"Assets/NatureMap");
 
-        // Load a simple 1x1 white pixel texture
-        // TODO: use this.Content to load your game content here
+        var player = new Player(mapRenderer.Map, 0, 6);
+        var inputHandler = new KeyboardInput();
+        var playerMovement = new PlayerMovement(player, inputHandler, 150);
+
+        _etherwildGame = new EtherwildGame(mapRenderer, playerMovement, inputHandler, player);
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        _player.Update(gameTime);
-        // TODO: Add your update logic here
-
+        _etherwildGame.Update(gameTime);
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Transparent);
-        
-        // TODO: Add your drawing code here
+
         _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp);
-        
-        _mapRenderer.Draw();
-        _player.Draw(_spriteBatch);
-        
+        _etherwildGame.Draw(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);
     }
 }
+
