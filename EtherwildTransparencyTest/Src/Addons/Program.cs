@@ -1,2 +1,4 @@
-﻿using var game = new EtherwildTransparencyTest.EtherwildGameWindow();
+﻿using EtherwildTransparencyTest.App;
+
+using var game = new EtherwildGameWindow();
 game.Run();

@@ -1,28 +1,27 @@
-﻿using System;
-using EtherwildTransparencyTest.Boilerplate;
+﻿using EtherwildTransparencyTest.Boilerplate;
 using EtherwildTransparencyTest.Core;
-using EtherwildTransparencyTest.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using OverlayWindow;
 using KeyboardInput = EtherwildTransparencyTest.Core.KeyboardInput;
 
-namespace EtherwildTransparencyTest;
-public class EtherwildGameWindow : Game
+namespace EtherwildTransparencyTest.App;
+
+public sealed class EtherwildGameWindow : OverlayGameSelf
 {
-    protected GraphicsDeviceManager Graphics;
-    private SpriteBatch _spriteBatch;
+    // protected GraphicsDeviceManager Graphics;
+    private readonly SpriteBatch _spriteBatch;
     private EtherwildGame _etherwildGame;
 
     public EtherwildGameWindow()
     {
-        Graphics = new GraphicsDeviceManager(this);
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        // Graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
         var mapRenderer = new MapRenderer(new TiledMapLoader(Content));
         mapRenderer.LoadContent(GraphicsDevice,"Assets/NatureMap");
 
@@ -35,7 +34,7 @@ public class EtherwildGameWindow : Game
 
     protected override void Update(GameTime gameTime)
     {
-        _etherwildGame.Update(gameTime);
+        _etherwildGame.Update(gameTime, this);
         base.Update(gameTime);
     }
 
