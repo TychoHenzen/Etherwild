@@ -4,9 +4,7 @@ using MonoGame.Extended.Tiled;
 
 namespace EtherwildTransparencyTest.Interfaces;
 
-public interface IMapRenderer
+public interface IDrawable
 {
-  void Initialize(GraphicsDevice graphicsDevice, TiledMap map);
-  void LoadContent(GraphicsDevice graphicsDevice,string mapName);
-  void Draw(SpriteBatch spriteBatch,Matrix scaleMatrix);
+  void Draw(SpriteBatch spriteBatch);
 }
