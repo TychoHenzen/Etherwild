@@ -3,11 +3,12 @@ using EtherwildTransparencyTest.Boilerplate;
 using EtherwildTransparencyTest.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using IDrawable = EtherwildTransparencyTest.Interfaces.IDrawable;
 
 namespace EtherwildTransparencyTest.Core;
 
 public sealed class EtherwildGame(
-    IMapRenderer mapRenderer,
+    IDrawable mapRenderer,
     IPlayerMovement playerMovement,
     IInputHandler inputHandler,
     Player player)
@@ -22,7 +23,7 @@ public sealed class EtherwildGame(
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        mapRenderer.Draw(spriteBatch, Matrix.Identity);
+        mapRenderer.Draw(spriteBatch);
         player.Draw(spriteBatch);
     }
 }
