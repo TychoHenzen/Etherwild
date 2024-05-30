@@ -1,4 +1,9 @@
-﻿namespace EtherwildTransparencyTest.Controllers;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace EtherwildTransparencyTest.Controllers;
 
 public class EventController
 {
