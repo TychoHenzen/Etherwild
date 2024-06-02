@@ -18,7 +18,7 @@ public sealed class KeyboardInput : IPlayerInput, IInputHandler
       movement.X -= 1;
     if (Keyboard.GetState().IsKeyDown(Keys.D))
       movement.X += 1;
-
+  
     return movement;
   }
 

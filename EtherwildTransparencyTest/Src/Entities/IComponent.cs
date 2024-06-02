@@ -1,8 +1,8 @@
 ﻿using EtherwildTransparencyTest.Controllers;
+using EtherwildTransparencyTest.Core;
 
 namespace EtherwildTransparencyTest.Entities;
 
-public interface IComponent
+public interface IComponent: IEventSensitive
 {
-  void RegisterEvents(EventController events);
 }

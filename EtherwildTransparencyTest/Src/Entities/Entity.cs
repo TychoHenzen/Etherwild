@@ -8,13 +8,13 @@ namespace EtherwildTransparencyTest.Entities;
 
 public sealed class Entity
 {
-  public int Id { get; }
+  private static ulong index = 0;
+  public ulong Id { get; } = index++;
   public string Name { get; }
   private readonly List<IComponent> _components = [];
 
-  internal Entity(int id, string name)
+  internal Entity(string name)
   {
-    Id = id;
     Name = name;
   }
 
