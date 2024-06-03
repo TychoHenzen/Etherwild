@@ -29,7 +29,7 @@ public class SplashTweener : BaseComponent
 
   private VoidT OnUpdate(GameTime t)
   {
-    if (t.TotalGameTime.TotalMilliseconds % 10_000 > 9900)
+    if (t.TotalGameTime.TotalMilliseconds % 10_000 > 9980)
     {
       _loadTest?.Invoke();
     }

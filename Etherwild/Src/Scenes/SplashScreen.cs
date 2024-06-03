@@ -34,6 +34,9 @@ public class SplashScreen : IScene
 
     public void RemoveObjects(EntityController ctrl)
     {
-        throw new NotImplementedException();
+        foreach (var entity in entities)
+        {
+            ctrl.DestroyEntity(entity);
+        }
     }
 }
