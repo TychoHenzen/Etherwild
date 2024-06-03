@@ -1,3 +1,4 @@
+using Etherwild.Controllers;
 using EtherwildTransparencyTest.Controllers;
 
 namespace EtherwildTransparencyTest.Core;

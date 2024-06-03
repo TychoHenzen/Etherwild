@@ -1,22 +1,22 @@
-﻿using EtherwildTransparencyTest.Boilerplate;
+﻿using System;
+using Etherwild.Controllers;
 using EtherwildTransparencyTest.Controllers;
 using EtherwildTransparencyTest.Core;
+using EtherwildTransparencyTest.Events;
 using EtherwildTransparencyTest.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OverlayWindow;
-using KeyboardInput = EtherwildTransparencyTest.Core.KeyboardInput;
 
-namespace EtherwildTransparencyTest.App;
+namespace Etherwild.App;
 
 public sealed class EtherwildGameWindow : Game
 {
-    protected GraphicsDeviceManager Graphics;
-    private SpriteBatch _spriteBatch;
-    private EtherwildGame _etherwildGame;
+    private GraphicsDeviceManager Graphics;
+    private SpriteBatch? _spriteBatch;
     private EntityController _entities;
     private EventController _events;
     private IScene activeScene;
+    private GameTime _time;
 
     public EtherwildGameWindow()
     {
@@ -24,41 +24,45 @@ public sealed class EtherwildGameWindow : Game
         Content.RootDirectory = "Content";
         _entities = new EntityController();
         _events = new EventController();
-        _events.CreateEvent<SpriteBatch, VoidT>(Constants.Sequence_Draw-500, "StartDraw");
-        _events.CreateEvent<SpriteBatch, VoidT>(Constants.Sequence_Draw, "Draw");
-        _events.CreateEvent<SpriteBatch, VoidT>(Constants.Sequence_Draw+500, "EndDraw");
-        _events.CreateEvent<GameTime, VoidT>(Constants.Sequence_Update, "Update");
-        _events.CreateEvent<GameTime, VoidT>(Constants.Sequence_Load, "LoadContent");
-        _events.CreateEvent<IScene, VoidT>(Constants.Sequence_SceneSwitch, "SceneSwitch");
-        _events.Listen<IScene, VoidT>(Constants.Sequence_SceneSwitch).Register(OnSwitchScene);
-        _events.Publish<IScene, VoidT>(Constants.Sequence_SceneSwitch).RegisterParameterProvider(() => new SplashScreen());
+        _events.Listen<SwitchSceneEvent,IScene, VoidT>().Register(OnSwitchScene);
         
-        _events.Listen<SpriteBatch, VoidT>("StartDraw").Register(batch =>
+        _events.Listen<StartDrawEvent, SpriteBatch, VoidT>().Register(batch =>
         {
             GraphicsDevice.Clear(Color.DarkRed);
             batch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp);
             return new VoidT();
         });
-        _events.Listen<SpriteBatch, VoidT>("EndDraw").Register(batch =>
+        _events.Listen<EndDrawEvent, SpriteBatch, VoidT>().Register(batch =>
         {
             batch.End();
             return new VoidT();
         });
+        _events.Publish<StartDrawEvent,SpriteBatch, VoidT>().RegisterParameterProvider(() => _spriteBatch!);
+        _events.Publish<DrawEvent,SpriteBatch, VoidT>().RegisterParameterProvider(() => _spriteBatch!);
+        _events.Publish<EndDrawEvent,SpriteBatch, VoidT>().RegisterParameterProvider(() => _spriteBatch!);
+        
+        OnSwitchScene(new SplashScreen());
     }
 
     private VoidT OnSwitchScene(IScene arg)
     {
+        Console.WriteLine("Switching to scene " +arg.GetType().Name);
+        if (activeScene != null)
+        {
+            activeScene.ClearEvents(_events);
+            activeScene.RemoveObjects(_entities);
+        }
         activeScene = arg;
+        activeScene.InstantiateObjects(_entities);
         activeScene.RegisterEvents(_events);
-        _events.Publish<IScene, VoidT>("SceneSwitch").RegisterParameterProvider(null);
+        _events.Publish<SwitchSceneEvent, IScene, VoidT>().RegisterParameterProvider(null);
         return new VoidT();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(Graphics.GraphicsDevice);
-        
-        _events.ExecuteEvents(Constants.Sequence_Load);
+        _events.ExecuteEvents<LoadAssetsEvent>();
         // var mapRenderer = new MapRenderer(new TiledMapLoader(Content));
         // mapRenderer.LoadContent(GraphicsDevice,"Assets/NatureMap");
         //
@@ -71,16 +75,17 @@ public sealed class EtherwildGameWindow : Game
 
     protected override void Update(GameTime gameTime)
     {
-        // _etherwildGame.Update(gameTime, this);
+        _events.ExecuteEvents<SwitchSceneEvent>();
+        _events.Publish<UpdateEvent, GameTime, VoidT>().Execute(gameTime);
         
-        _events.ExecuteEvents(Constants.Sequence_SceneSwitch-500);
-        _events.ExecuteEvents(Constants.Sequence_Update-500);
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        _events.ExecuteEvents(Constants.Sequence_Draw-500);
+        _events.Publish<StartDrawEvent, SpriteBatch, VoidT>().Execute(_spriteBatch);
+        _events.Publish<DrawEvent, SpriteBatch, VoidT>().Execute(_spriteBatch);
+        _events.Publish<EndDrawEvent, SpriteBatch, VoidT>().Execute(_spriteBatch);
         base.Draw(gameTime);
     }
 }

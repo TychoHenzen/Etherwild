@@ -10,6 +10,8 @@
         <SelfContained>false</SelfContained>
         <PublishSingleFile>false</PublishSingleFile>
         <Nullable>enable</Nullable>
+        <AssemblyName>Etherwild</AssemblyName>
+        <RootNamespace>Etherwild</RootNamespace>
     </PropertyGroup>
     <PropertyGroup>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -17,6 +19,9 @@
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DebugType>full</DebugType>
     </PropertyGroup>
     <ItemGroup>
         <MonoGameContentReference Include="**\*.mgcb" />
@@ -62,7 +67,6 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Src\Channels\" />
-      <Folder Include="Src\Components\" />
     </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>

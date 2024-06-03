@@ -7,18 +7,21 @@ public interface IPublisherEvent<TParams, TResponse>
 {
     void RegisterParameterProvider(Func<TParams>? provideParameters);
     void RegisterResponseHandler(Action<IEnumerable<TResponse>> handleResponses);
+    
+    void Execute(TParams arg);
 }
 
 // Interface for events as seen by the listeners
 public interface IGeneralListenerEvent<TParams, TResponse>
 {
-    IToken Register(Func<TParams,TResponse> handler);
-    void Remove(IToken toRemove);
+    void Register(ulong index, Func<TParams,TResponse> handler);
+    ulong Register(Func<TParams,TResponse> handler);
+    void Remove(ulong toRemove);
 }
 // Interface for events as seen by the listeners
 public interface ITargetedListenerEvent<TResponse>
 {
-    void Register(ulong target, Func<ulong,TResponse> handler);
+    void Register(ulong target, Func<TResponse> handler);
     void Remove(ulong toRemove);
 }
 public interface IToken
@@ -36,7 +39,6 @@ public interface ITargetedEvent<TResponse> :
 
 public interface ILoopEvent
 {
-    int Sequence { get; }
     string Name { get; }
     void Execute();
 }

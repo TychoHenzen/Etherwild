@@ -13,7 +13,7 @@ include:
   - name: CppThisArgMemberFuncDelegateCtorIsUnsuportedByDotNetCore
   - name: ReplaceAssignmentWithOperatorAssignmentJS
   - name: ES6PossiblyAsyncFunction
-  - name: AssignmentToForLoopParameterJS
+  - name: AssignmentToForLoopParameterJS 
   - name: AssignmentToFunctionParameterJS
   - name: JSAssignmentUsedAsCondition
   - name: NestedAssignmentJS
@@ -785,3 +785,15 @@ include:
   - name: CppClangTidyClangDiagnosticAvrRtlibLinkingQuirks
   - name: CppClangTidyClangDiagnosticAlwaysInlineCoroutine
   - name: CppClangTidyClangDiagnosticAixCompat
+exclude:
+  - name: All
+    paths:  
+      - EtherwildTransparencyTest\Content\Assets\MasterSheet.tsx
+      - EtherwildTransparencyTest\app.manifest
+      - Etherwild.sln
+      - ..\..\..\..\Program Files\dotnet\sdk\8.0.204\Sdks\Microsoft.NET.Sdk\analyzers\build\config\analysislevel_8_default.globalconfig
+      - EtherwildEditor\.wakatime-project
+      - EtherwildTransparencyTest\EtherwildTransparencyTest.csproj
+      - EtherwildTransparencyTest\Content\Assets\Map.tiled-session
+      - EtherwildTransparencyTest\Content\Assets\NatureMap.tmx
+      - EtherwildTransparencyTest\FodyWeavers.xml

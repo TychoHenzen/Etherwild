@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace EtherwildTransparencyTest.Events;
 
-public class TargetedEvent<TResponse> : ITargetedEvent<TResponse>, ILoopEvent
+public abstract class TargetedEvent<TResponse> : ITargetedEvent<TResponse>, ILoopEvent
 {
     private Func<ulong>? _parameterProvider;
     private Action<IEnumerable<TResponse>>? _responseHandler;
-    private readonly Dictionary<ulong, Func<ulong, TResponse>> _listeners = [];
+    private readonly Dictionary<ulong, Func<TResponse>> _listeners = [];
 
     public int Sequence { get; }
     public string Name { get; }
@@ -27,7 +27,7 @@ public class TargetedEvent<TResponse> : ITargetedEvent<TResponse>, ILoopEvent
         _responseHandler = handleResponses;
     }
     
-    public void Register(ulong entity, Func<ulong, TResponse> handler)
+    public void Register(ulong entity, Func<TResponse> handler)
     {
         _listeners.Add(entity, handler);
     }
@@ -40,7 +40,13 @@ public class TargetedEvent<TResponse> : ITargetedEvent<TResponse>, ILoopEvent
     {
         if (_parameterProvider == null) return;
         var parameters = _parameterProvider.Invoke();
-        var responses = _listeners[parameters].Invoke(parameters);
+        var responses = _listeners[parameters].Invoke();
+        _responseHandler?.Invoke([responses]);
+    }
+    public void Execute(ulong target)
+    {
+        if (_parameterProvider == null) return;
+        var responses = _listeners[target].Invoke();
         _responseHandler?.Invoke([responses]);
     }
 }
